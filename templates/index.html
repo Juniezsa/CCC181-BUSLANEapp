@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <p>Hello, {{ name }}!</p>
+
+  <h2>Tickets in the queue</h2>
+  <ul class="tickets">
+    {% for t in tickets %}
+      <li>
+        <a href="{{ url_for('ticket', ticket_id=t['Number']) }}">
+          #{{ t['Number'] }} - {{ buses[t['Bus Type']]['Bus Type'] }} 
+        </a>
+        <div>
+          {{ t['From'] }} → {{ t['Destination'] }}
+          - {{ t['Departure Time']}}
+          - {{ t['Status']}}
+          - {{ t['Passenger Type']}}
+          {% if t['Priority'] %}  - <strong>Priority</strong> {% endif %}
+        </div>
+      </li>
+    {% else %}
+      <li>The queue is empty.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
